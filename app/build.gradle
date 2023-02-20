@@ -8,14 +8,7 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('C:\\keyStorage\\keyStorage.jks')
-            storePassword '25328lOl'
-            keyAlias 'key0'
-            keyPassword '25328lOl'
-        }
-    }
+
     namespace 'com.example.movies'
     compileSdk 33
 
