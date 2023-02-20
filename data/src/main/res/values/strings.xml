@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="favorite">Favorite</string>
+    <string name="to_watch">To watch</string>
+    <string name="watched">Watched</string>
+    <string name="was_interesting">Was interesting</string>
+</resources>

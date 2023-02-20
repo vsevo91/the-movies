@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="favorite">Любимые</string>
+    <string name="to_watch">Хочу посмотреть</string>
+    <string name="watched">Посмотрено</string>
+    <string name="was_interesting">Было интересно</string>
+</resources>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="26dp"
+        android:background="@drawable/background_for_year_selection"
+        tools:context=".presentation.fragments.search.ChoosingYearItemFragment">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/period"
+            style="@style/StandardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="26dp"
+            android:textColor="@color/violet"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1998-2009" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/arrow_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_arrow_2"
+            app:layout_constraintBottom_toBottomOf="@id/period"
+            app:layout_constraintEnd_toStartOf="@id/arrow_right"
+            app:layout_constraintTop_toTopOf="@id/period" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            android:rotation="180"
+            android:src="@drawable/ic_arrow_2"
+            app:layout_constraintBottom_toBottomOf="@id/period"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/period" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="26dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/period"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_1"
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="1998" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_2"
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="1999" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_3"
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="2000" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="2001" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="2002" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="2003" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="2004" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="2005" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="2006" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="2007" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="2008" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.App.Chip.YearChoice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/StandardText"
+                android:textColor="@color/chip_text_color"
+                tools:text="2009" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

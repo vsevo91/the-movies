@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/title_image"
+            style="@style/StandardText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="26dp"
+            android:gravity="center"
+            android:src="@drawable/ic_attention"
+            android:text="@string/enter_the_name_of_your_new_collection"
+            android:textColor="@color/light_gray"
+            android:tint="@color/light_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/info_text"
+            style="@style/StandardText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="26dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textColor="@color/light_gray"
+            app:layout_constraintBottom_toTopOf="@id/refresh_button"
+            app:layout_constraintTop_toBottomOf="@id/title_image"
+            tools:text="@string/check_internet_connection" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/refresh_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="26dp"
+            android:background="@drawable/background_for_button"
+            android:backgroundTint="@color/dark_red"
+            android:paddingStart="52dp"
+            android:paddingEnd="52dp"
+            android:text="@string/refresh"
+            android:textAppearance="@style/StandardText"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".presentation.fragments.search.SearchSettingsFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_arrow_2"
+            app:navigationIconTint="@color/dark_gray"
+            app:titleTextAppearance="@style/StandardText">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/toolbar_title"
+                style="@style/StandardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/search_settings"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/reset_button"
+                style="@style/StandardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:clickable="true"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:paddingStart="26dp"
+                android:paddingTop="13dp"
+                android:paddingEnd="26dp"
+                android:paddingBottom="13dp"
+                android:text="@string/reset"
+                android:textColor="@color/light_gray" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <HorizontalScrollView
+            android:id="@+id/chips_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/to_show">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_show_group"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:overScrollMode="ifContentScrolls"
+                app:chipSpacingHorizontal="0dp"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_all"
+                    style="@style/Widget.App.Chip"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:checked="true"
+                    android:text="@string/all"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/StandardText"
+                    android:textColor="@color/chip_text_color"
+                    android:textSize="18sp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Chip.RoundLeft" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_movies"
+                    style="@style/Widget.App.Chip"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="-1dp"
+                    android:layout_marginEnd="-1dp"
+                    android:text="@string/movies"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/StandardText"
+                    android:textColor="@color/chip_text_color"
+                    android:textSize="18sp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Chip.Rectangular" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_series"
+                    style="@style/Widget.App.Chip"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/series"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/StandardText"
+                    android:textColor="@color/chip_text_color"
+                    android:textSize="18sp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Chip.RoundRight" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/to_show"
+            style="@style/StandardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/to_show"
+            android:textColor="@color/medium_gray"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <FrameLayout
+            android:id="@+id/country_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="26dp"
+            app:layout_constraintTop_toBottomOf="@id/chips_container">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/country"
+                style="@style/StandardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/country" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/country_chosen"
+                style="@style/StandardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:text="@string/country"
+                android:textColor="@color/medium_gray" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/light_gray" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/genre_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="26dp"
+            app:layout_constraintTop_toBottomOf="@+id/country_layout">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/genre"
+                style="@style/StandardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/genre" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/genre_chosen"
+                style="@style/StandardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:text="@string/genre"
+                android:textColor="@color/medium_gray" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/light_gray" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/year_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="26dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/genre_layout">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/year"
+                    style="@style/StandardText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/year" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/year_chosen"
+                    style="@style/StandardText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:text="@string/all"
+                    android:textColor="@color/medium_gray" />
+            </FrameLayout>
+
+            <!--<com.google.android.material.slider.RangeSlider
+                android:id="@+id/range_slider_year"
+                style="@style/Widget.App.Slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />-->
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/light_gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rating_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="26dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/year_layout">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/rating"
+                    style="@style/StandardText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/rating" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/rating_chosen"
+                    style="@style/StandardText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:text="@string/all"
+                    android:textColor="@color/medium_gray" />
+            </FrameLayout>
+
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/range_slider_rating"
+                style="@style/Widget.App.Slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/light_gray" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/to_sort_by"
+            style="@style/StandardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/to_sort_by"
+            android:textColor="@color/medium_gray"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rating_layout" />
+
+
+
+        <HorizontalScrollView
+            android:id="@+id/chips_2_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/to_sort_by">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_sort_group"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                app:chipSpacingHorizontal="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/to_sort_by"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_date"
+                    style="@style/Widget.App.Chip"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:checked="true"
+                    android:text="@string/date"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/StandardText"
+                    android:textColor="@color/chip_text_color"
+                    android:textSize="18sp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Chip.RoundLeft" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_popularity"
+                    style="@style/Widget.App.Chip"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="-1dp"
+                    android:layout_marginEnd="-1dp"
+                    android:text="@string/popularity"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/StandardText"
+                    android:textColor="@color/chip_text_color"
+                    android:textSize="18sp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Chip.Rectangular" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_rating"
+                    style="@style/Widget.App.Chip"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/rating"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/StandardText"
+                    android:textColor="@color/chip_text_color"
+                    android:textSize="18sp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Chip.RoundRight" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+
+        </HorizontalScrollView>
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/checkbox_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="26dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chips_2_container">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/checkbox"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="26dp"
+                android:src="@drawable/selector_for_check_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/checkbox_name"
+                style="@style/StandardText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="26dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/checkbox"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Checkbox" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_button"
+            style="@style/Widget.AppCompat.Button.Custom"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="@string/show"
+            android:textAllCaps="false"
+            android:textAppearance="@style/StandardText"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkbox_layout" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
