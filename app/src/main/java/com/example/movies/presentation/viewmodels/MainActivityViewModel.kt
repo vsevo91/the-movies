@@ -8,9 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.GetIfShowOnboardingScreenUseCase
 import com.example.domain.utilities.APPLICATION_TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,6 +19,7 @@ class MainActivityViewModel @Inject constructor(
 
     private val _ifShow = MutableLiveData<Boolean>()
     val ifShow: LiveData<Boolean> get() = _ifShow
+    private var appIsRunning = false
 
     init {
       delayForSplashScreen()
@@ -41,5 +40,13 @@ class MainActivityViewModel @Inject constructor(
             Log.d(APPLICATION_TAG, "Info from activity vm. If show? -> $value")
             _ifShow.value = value
         }
+    }
+
+    fun setAppIsRunning(isRunning:Boolean){
+        appIsRunning = isRunning
+    }
+
+    fun checkIfAppIsRunning():Boolean{
+        return appIsRunning
     }
 }
