@@ -3,6 +3,7 @@ package com.example.movies.presentation.activities
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
@@ -11,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
 import androidx.viewbinding.ViewBinding
+import com.example.domain.utilities.APPLICATION_TAG
 import com.example.movies.databinding.ActivityMainWithOnboardingBinding
 import com.example.movies.databinding.ActivityMainWithoutOnboardingBinding
 import com.example.movies.presentation.viewmodels.MainActivityViewModel
@@ -27,16 +29,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vm.ifShow.observe(this) { ifShow ->
-            _binding = if (!ifShow) {
-                ActivityMainWithoutOnboardingBinding.inflate(layoutInflater)
-            } else {
-                ActivityMainWithOnboardingBinding.inflate(layoutInflater)
-            }
-            addOnPreDrawListenerForSplashScreenDelaying()
+        if (vm.checkIfAppIsRunning()) {
+            _binding = ActivityMainWithoutOnboardingBinding.inflate(layoutInflater)
             setContentView(binding.root)
+        } else {
+            vm.ifShow.observe(this) { ifShow ->
+                _binding = if (ifShow) {
+                    ActivityMainWithOnboardingBinding.inflate(layoutInflater)
+                } else {
+                    ActivityMainWithoutOnboardingBinding.inflate(layoutInflater)
+                }
+                addOnPreDrawListenerForSplashScreenDelaying()
+                setContentView(binding.root)
+                vm.setAppIsRunning(true)
+            }
+            vm.ifShowOnboardingScreen()
         }
-        vm.ifShowOnboardingScreen()
     }
 
     private fun addOnPreDrawListenerForSplashScreenDelaying() {
@@ -71,6 +79,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun turnOnStatusBarTransparency(exceptView: View? = null, callback: (() -> Unit)? = null) {
+        Log.d(APPLICATION_TAG, "Turning ON StatusBarTransparency")
+        if (_binding == null) return
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.TRANSPARENT
         window.addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -90,6 +100,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun turnOffStatusBarTransparency(callback: (() -> Unit)? = null) {
+        Log.d(APPLICATION_TAG, "Turning OFF StatusBarTransparency")
         if (_binding == null) return
         WindowCompat.setDecorFitsSystemWindows(window, true)
         val attrs = intArrayOf(com.google.android.material.R.attr.colorPrimaryVariant)
