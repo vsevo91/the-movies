@@ -144,7 +144,7 @@ class MovieInfoFragment : Fragment() {
                 when (state) {
                     State.COLLAPSED -> {
                         mMovie?.let {
-                            binding.collapsingToolbarLayout.title = it.nameRu
+                            binding.collapsingToolbarLayout.title = defineName(it)
                             getAttrs(attr.colorOnPrimary) { attrs ->
                                 binding.collapsingToolbarLayout.setCollapsedTitleTextColor(
                                     attrs.getColor(0, 0)
@@ -268,7 +268,8 @@ class MovieInfoFragment : Fragment() {
                             totalNumberOfPictures
                         else
                             MAX_IMAGES_FOR_HORIZONTAL_PREVIEW
-                    val galleryImageUrlList = listOfImagesForPreview!!.map { it.imageUrl ?: "" }.toTypedArray()
+                    val galleryImageUrlList =
+                        listOfImagesForPreview!!.map { it.imageUrl ?: "" }.toTypedArray()
                     val bundle = Bundle().apply {
                         putString(ARG_GALLERY_IMAGE, exactGalleryImage.imageUrl)
                         putInt(ARG_MOVIE_ID, movieId!!)
@@ -395,7 +396,7 @@ class MovieInfoFragment : Fragment() {
                 if (it) seriesInfoContainer.visibility = View.VISIBLE
             }
             if (movie.coverUrl == null) {
-                movieNameTextView.text = movie.nameRu
+                movieNameTextView.text = defineName(movie)
             } else {
                 movieNameTextView.text = null
                 Glide
@@ -461,41 +462,51 @@ class MovieInfoFragment : Fragment() {
         (requireActivity() as MainActivity).turnOnStatusBarTransparency(binding.toolbar)
     }
 
-    private fun defineName(movie: MovieFullInfo): String {
-        return if (movie.nameRu != null) {
-            movie.nameRu!!
-        } else if (movie.nameEn != null) {
-            movie.nameEn!!
-        } else if (movie.nameOriginal != null) {
-            movie.nameOriginal!!
-        } else ""
-    }
+//    private fun defineName(movie: MovieFullInfo): String {
+//        return if (movie.nameRu != null) {
+//            movie.nameRu!!
+//        } else if (movie.nameEn != null) {
+//            movie.nameEn!!
+//        } else if (movie.nameOriginal != null) {
+//            movie.nameOriginal!!
+//        } else ""
+//    }
 
     private fun defineYearAndGenres(movie: MovieFullInfo): String {
         val year = if (movie.year == null) {
             ""
-        }
-        else {
+        } else {
             "${movie.year}, "
         }
         return "$year${movie.genres?.joinToString(", ")}"
     }
 
     private fun defineNameAndRating(movie: MovieFullInfo): SpannableString {
+
         val rating = movie.rating ?: ""
-        val name = if (movie.nameRu != null) {
-            movie.nameRu!!
-        } else if (movie.nameEn != null) {
-            movie.nameEn!!
-        } else if (movie.nameOriginal != null) {
-            movie.nameOriginal!!
-        } else ""
+        val name = defineName(movie)
         val ratingAndName = "$rating $name"
         val indexOfFirstSpace = ratingAndName.indexOf(' ')
         val spannableString = SpannableString(ratingAndName)
         val boldSpan = StyleSpan(Typeface.BOLD)
         spannableString.setSpan(boldSpan, 0, indexOfFirstSpace, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
         return spannableString
+    }
+
+    private fun defineName(movie: MovieFullInfo): String {
+        val currentLocale = resources.configuration.locales[0].country
+        return if (currentLocale == "RU" && movie.nameRu != null && movie.nameRu.toString()
+                .isNotBlank()
+        ) {
+            movie.nameRu!!
+        } else if (movie.nameEn != null && movie.nameEn.toString().isNotBlank()) {
+            movie.nameEn!!
+        } else if (movie.nameOriginal != null && movie.nameOriginal.toString().isNotBlank()) {
+            movie.nameOriginal!!
+        } else if (movie.nameRu != null && movie.nameRu.toString().isNotBlank()
+        ) {
+            movie.nameRu!!
+        } else ""
     }
 
     private fun defineCountriesLengthAge(movie: MovieFullInfo): String {

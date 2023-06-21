@@ -58,8 +58,10 @@ class StaffFilmographyItemFragment : Fragment() {
                 vm.clearErrorState()
             }
         }
+        val currentLocale = resources.configuration.locales[0].country
         val adapter =
             AdapterForVerticalMovieList(
+                currentLocale,
                 movieList?.items?.sortedBy { it.rating }?.reversed()
                     ?: emptyList()
             )

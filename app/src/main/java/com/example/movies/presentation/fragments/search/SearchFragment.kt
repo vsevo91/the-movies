@@ -63,13 +63,13 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm.connectionErrorState.observe(viewLifecycleOwner) { isError ->
-            if (isError) doIfError(true){
+            if (isError) doIfError(true) {
                 vm.clearErrorState()
                 vm.getGenresAndCountriesForFiltering()
             }
         }
         vm.otherErrorState.observe(viewLifecycleOwner) { isError ->
-            if (isError) doIfError(false){
+            if (isError) doIfError(false) {
                 vm.clearErrorState()
                 vm.getGenresAndCountriesForFiltering()
             }
@@ -81,9 +81,10 @@ class SearchFragment : Fragment() {
                 }
             }
         }
-        _adapter = AdapterForVerticalMovieListPaged()
+        val currentLocale = resources.configuration.locales[0].country
+        _adapter = AdapterForVerticalMovieListPaged(currentLocale)
         binding.recyclerView.adapter = adapter.withLoadStateFooter(SearchLoadStateAdapter(
-            onRetry = {adapter.retry()}
+            onRetry = { adapter.retry() }
         ))
         binding.recyclerView.addItemDecoration(SpaceItemDecoration(0, 20))
         adapter.loadStateFlow.onEach {
@@ -106,8 +107,8 @@ class SearchFragment : Fragment() {
                 vm.disableScrollingUp()
                 Log.d(APPLICATION_TAG, "APPEND LoadState: ${it.append}")
             }
-            if(it.source.refresh is LoadState.Error){
-                doIfError(true){
+            if (it.source.refresh is LoadState.Error) {
+                doIfError(true) {
                     adapter.retry()
                 }
             }
@@ -121,7 +122,7 @@ class SearchFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.filteredStreamOdMovies.collect { pagingData ->
                     job?.cancel()
                     job = null

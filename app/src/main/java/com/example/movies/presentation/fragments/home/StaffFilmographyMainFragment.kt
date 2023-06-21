@@ -61,12 +61,7 @@ class StaffFilmographyMainFragment : Fragment() {
         val listOfProfessions = generalListOfMovies.map { it.professionKey }.distinct()
         val listOfMovieListsByProfession = makeLists(generalListOfMovies, listOfProfessions)
         staffFullInfo?.let { staff ->
-            binding.toolbarStaffName.text =
-                if (staff.nameRu != null && staff.nameRu.toString().isNotBlank()) {
-                    staff.nameRu
-                } else {
-                    staff.nameEn
-                }
+            binding.toolbarStaffName.text = defineName(staff)
         }
         binding.toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
@@ -89,6 +84,25 @@ class StaffFilmographyMainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun defineName(staffFullInfo: StaffFullInfo): String {
+        val currentLocale = resources.configuration.locales[0].country
+        return if (currentLocale == "RU" && staffFullInfo.nameRu != null &&
+            staffFullInfo.nameRu.toString().isNotBlank()
+        ) {
+            staffFullInfo.nameRu!!
+        } else if (staffFullInfo.nameEn != null &&
+            staffFullInfo.nameEn.toString().isNotBlank()
+        ) {
+            staffFullInfo.nameEn!!
+        } else if (staffFullInfo.nameRu != null &&
+            staffFullInfo.nameRu.toString().isNotBlank()
+        ) {
+            staffFullInfo.nameRu!!
+        } else {
+            ""
+        }
     }
 
     private fun makeLists(

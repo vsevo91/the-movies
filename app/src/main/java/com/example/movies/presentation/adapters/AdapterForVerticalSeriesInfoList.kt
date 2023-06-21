@@ -10,6 +10,7 @@ import com.example.movies.R
 import com.example.movies.databinding.ItemForSeriesInfoBinding
 
 class AdapterForVerticalSeriesList(
+    private val currentLocale: String,
     private var list: List<Episode>,
     private val resources: Resources
 ) : RecyclerView.Adapter<ViewHolderForVerticalSeriesList>() {
@@ -37,12 +38,18 @@ class AdapterForVerticalSeriesList(
     }
 
     private fun defineName(episode: Episode): String {
-        return if (episode.nameRu != null &&
+        return if (currentLocale == "RU" && episode.nameRu != null &&
+            episode.nameRu.toString().isNotBlank()
+        ) {
+            episode.nameRu!!
+        } else if (episode.nameEn != null && episode.nameEn.toString().isNotBlank()) {
+            episode.nameEn!!
+        } else if (episode.nameRu != null &&
             episode.nameRu.toString().isNotBlank()
         ) {
             episode.nameRu!!
         } else {
-            episode.nameEn ?: ""
+            ""
         }
     }
 

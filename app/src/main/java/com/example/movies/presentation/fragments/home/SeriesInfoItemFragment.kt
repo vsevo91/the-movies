@@ -45,7 +45,8 @@ class SeriesInfoItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (season == null) return
         val listOfEpisodes = season!!.episodes
-        val adapter = AdapterForVerticalSeriesList(listOfEpisodes, resources)
+        val currentLocale = resources.configuration.locales[0].country
+        val adapter = AdapterForVerticalSeriesList(currentLocale, listOfEpisodes, resources)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(SpaceItemDecoration(0, 40))
         val numberOfEpisodes = season!!.episodes.size
