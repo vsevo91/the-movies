@@ -94,7 +94,8 @@ class MovieListFragment : Fragment() {
                     startGettingMovies()
                 }
             }
-            _adapterPaged = AdapterForGridMovieListPaged()
+            val currentLocale = resources.configuration.locales[0].country
+            _adapterPaged = AdapterForGridMovieListPaged(currentLocale)
 
             adapterPaged.setResourceOfAdditionalMovieInfo {
                 vm.getMovieFullInfoSource(it)
@@ -139,7 +140,9 @@ class MovieListFragment : Fragment() {
                     vm.clearErrorState()
                 }
             }
-            val adapter = AdapterForGridMovieList(movieGeneralList!!.items)
+            val currentLocale = resources.configuration.locales[0].country
+            Log.d(APPLICATION_TAG + "123", currentLocale)
+            val adapter = AdapterForGridMovieList(movieGeneralList!!.items, currentLocale)
             adapter.setResourceOfAdditionalMovieInfo {
                 vm.getMovieFullInfoSource(it)
             }

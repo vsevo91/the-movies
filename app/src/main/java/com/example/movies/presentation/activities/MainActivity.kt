@@ -11,6 +11,9 @@ import android.view.WindowManager.LayoutParams
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import com.example.domain.utilities.APPLICATION_TAG
 import com.example.movies.databinding.ActivityMainWithOnboardingBinding
@@ -18,6 +21,8 @@ import com.example.movies.databinding.ActivityMainWithoutOnboardingBinding
 import com.example.movies.presentation.viewmodels.MainActivityViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -33,18 +38,22 @@ class MainActivity : AppCompatActivity() {
             _binding = ActivityMainWithoutOnboardingBinding.inflate(layoutInflater)
             setContentView(binding.root)
         } else {
-            vm.ifShow.observe(this) { ifShow ->
-                _binding = if (ifShow) {
-                    ActivityMainWithOnboardingBinding.inflate(layoutInflater)
-                } else {
-                    ActivityMainWithoutOnboardingBinding.inflate(layoutInflater)
+            lifecycleScope.launch {
+                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    vm.ifShow.collect { ifShow ->
+                        _binding = if (ifShow) {
+                            ActivityMainWithOnboardingBinding.inflate(layoutInflater)
+                        } else {
+                            enterApplication()
+                            ActivityMainWithoutOnboardingBinding.inflate(layoutInflater)
+                        }
+                        addOnPreDrawListenerForSplashScreenDelaying()
+                        setContentView(binding.root)
+                    }
                 }
-                addOnPreDrawListenerForSplashScreenDelaying()
-                setContentView(binding.root)
-                vm.setAppIsRunning(true)
             }
-            vm.ifShowOnboardingScreen()
         }
+        vm.ifShowOnboardingScreen()
     }
 
     private fun addOnPreDrawListenerForSplashScreenDelaying() {
@@ -76,6 +85,10 @@ class MainActivity : AppCompatActivity() {
             message,
             Snackbar.LENGTH_SHORT
         ).show()
+    }
+
+    fun enterApplication() {
+        vm.setAppIsRunning(true)
     }
 
     fun turnOnStatusBarTransparency(exceptView: View? = null, callback: (() -> Unit)? = null) {

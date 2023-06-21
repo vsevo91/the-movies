@@ -50,7 +50,7 @@ class StaffFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm.connectionErrorState.observe(viewLifecycleOwner) { isError ->
-            if (isError) doIfError(true){
+            if (isError) doIfError(true) {
                 vm.clearErrorState()
                 staffId?.let {
                     vm.getStaffFullInfoByStaffId(it)
@@ -58,7 +58,7 @@ class StaffFragment : Fragment() {
             }
         }
         vm.otherErrorState.observe(viewLifecycleOwner) { isError ->
-            if (isError) doIfError(false){
+            if (isError) doIfError(false) {
                 vm.clearErrorState()
                 staffId?.let {
                     vm.getStaffFullInfoByStaffId(it)
@@ -81,13 +81,7 @@ class StaffFragment : Fragment() {
             bestMovies = getStaffBestMovies(staff!!)
             setBestMovieListForPreview()
             binding.apply {
-                staffName.text = if (staffFullInfo.nameRu != null &&
-                    staffFullInfo.nameRu.toString().isNotBlank()
-                ) {
-                    staffFullInfo.nameRu
-                } else {
-                    staffFullInfo.nameEn
-                }
+                staffName.text = defineName(staffFullInfo)
                 staffProfession.text = staffFullInfo.profession
                 val moviesCount = staffFullInfo.movies.distinctBy { it.id }.size
                 filmographyCount.text =
@@ -119,6 +113,25 @@ class StaffFragment : Fragment() {
         }
         staffId?.let {
             vm.getStaffFullInfoByStaffId(it)
+        }
+    }
+
+    private fun defineName(staffFullInfo: StaffFullInfo): String {
+        val currentLocale = resources.configuration.locales[0].country
+        return if (currentLocale == "RU" && staffFullInfo.nameRu != null &&
+            staffFullInfo.nameRu.toString().isNotBlank()
+        ) {
+            staffFullInfo.nameRu!!
+        } else if (staffFullInfo.nameEn != null &&
+            staffFullInfo.nameEn.toString().isNotBlank()
+        ) {
+            staffFullInfo.nameEn!!
+        } else if (staffFullInfo.nameRu != null &&
+            staffFullInfo.nameRu.toString().isNotBlank()
+        ) {
+            staffFullInfo.nameRu!!
+        } else {
+            ""
         }
     }
 

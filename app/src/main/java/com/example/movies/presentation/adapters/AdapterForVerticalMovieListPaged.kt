@@ -24,7 +24,9 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class AdapterForVerticalMovieListPaged :
+class AdapterForVerticalMovieListPaged(
+    private val currentLocale: String
+) :
     PagingDataAdapter<MovieGeneral, ViewHolderForVerticalMovieListPaged>(
         DiffUtilItemCallBackForMovies()
     ) {
@@ -94,7 +96,7 @@ class AdapterForVerticalMovieListPaged :
                 toDoIfNull = { genreText.text = it.genres?.firstOrNull() }
             )
 
-            movieName.text = defineMovieName(movie, movieName)
+            defineMovieName(movie, movieName)
 
             root.setOnClickListener {
                 actionOnItemClick?.invoke(movie)
@@ -167,21 +169,33 @@ class AdapterForVerticalMovieListPaged :
         else textView.maxLines = 2
     }
 
-    private fun defineMovieName(movie: MovieGeneral, textView: TextView): String {
-        return if (movie.nameRu != null && movie.nameRu.toString().isNotBlank()) {
-            val text = movie.nameRu
-            checkTextLength(text!!, textView)
-            text
-        } else if (movie.nameEn != null && movie.nameEn.toString().isNotBlank()) {
-            val text = movie.nameEn
-            checkTextLength(text!!, textView)
-            text
-        } else if (movie.nameOriginal != null && movie.nameOriginal.toString().isNotBlank()) {
-            val text = movie.nameOriginal
-            checkTextLength(text!!, textView)
-            text
-        } else {
-            ""
+    private fun defineMovieName(movie: MovieGeneral, textView: TextView) {
+        when {
+            currentLocale == "RU" && movie.nameRu != null && movie.nameRu.toString()
+                .isNotBlank() -> {
+                val text = movie.nameRu!!
+                checkTextLength(text, textView)
+                textView.text = text
+            }
+
+            movie.nameEn != null && movie.nameEn.toString().isNotBlank() -> {
+                val text = movie.nameEn!!
+                checkTextLength(text, textView)
+                textView.text = text
+            }
+
+            movie.nameOriginal != null && movie.nameOriginal.toString().isNotBlank() -> {
+                val text = movie.nameOriginal!!
+                checkTextLength(text, textView)
+                textView.text = text
+            }
+
+            movie.nameRu != null && movie.nameRu.toString()
+                .isNotBlank() -> {
+                val text = movie.nameRu!!
+                checkTextLength(text, textView)
+                textView.text = text
+            }
         }
     }
 

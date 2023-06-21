@@ -11,6 +11,7 @@ import com.example.movies.R
 import com.example.movies.databinding.ItemForVerticalStaffListBinding
 
 class AdapterForVerticalStaffList(
+    private val currentLocale: String,
     private var list: List<StaffRelatedToMovie>
 ) : RecyclerView.Adapter<ViewHolderForVerticalStaffList>() {
 
@@ -78,12 +79,20 @@ class AdapterForVerticalStaffList(
     }
 
     private fun defineName(staff: StaffRelatedToMovie): String {
-        return if (staff.nameRu != null &&
+        return if (currentLocale == "RU" && staff.nameRu != null &&
+            staff.nameRu.toString().isNotBlank()
+        ) {
+            staff.nameRu!!
+        } else if (staff.nameEn != null &&
+            staff.nameEn.toString().isNotBlank()
+        ) {
+            staff.nameEn!!
+        } else if (staff.nameRu != null &&
             staff.nameRu.toString().isNotBlank()
         ) {
             staff.nameRu!!
         } else {
-            staff.nameEn ?: ""
+            ""
         }
     }
 

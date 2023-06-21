@@ -12,6 +12,7 @@ import com.example.movies.databinding.ItemForHorizontalStaffListBinding
 
 
 class AdapterForHorizontalStaffList(
+    private val currentLocale: String,
     private val actionOnItemClick: (StaffRelatedToMovie) -> Unit
 ) : RecyclerView.Adapter<ViewHolderForHorizontalStaffList>() {
 
@@ -78,12 +79,20 @@ class AdapterForHorizontalStaffList(
     }
 
     private fun defineName(staff: StaffRelatedToMovie): String {
-        return if (staff.nameRu != null &&
+        return if (currentLocale == "RU" && staff.nameRu != null &&
+            staff.nameRu.toString().isNotBlank()
+        ) {
+            staff.nameRu!!
+        } else if (staff.nameEn != null &&
+            staff.nameEn.toString().isNotBlank()
+        ) {
+            staff.nameEn!!
+        } else if (staff.nameRu != null &&
             staff.nameRu.toString().isNotBlank()
         ) {
             staff.nameRu!!
         } else {
-            staff.nameEn ?: ""
+            ""
         }
     }
 

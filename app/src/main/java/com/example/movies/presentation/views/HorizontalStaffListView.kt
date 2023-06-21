@@ -38,7 +38,9 @@ class HorizontalStaffListView @JvmOverloads constructor(
         allItemsButton = binding.allItemsButton
         recyclerView = binding.recyclerView
         setUniqueIdForRecyclerView()
+        val currentLocale = resources.configuration.locales[0].country
         adapter = AdapterForHorizontalStaffList(
+            currentLocale,
             actionOnItemClick = { staff ->
                 actionOnItemClick?.let {
                     it(staff)

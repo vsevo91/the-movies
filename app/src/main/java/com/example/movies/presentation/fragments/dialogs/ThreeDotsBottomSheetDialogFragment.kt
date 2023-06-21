@@ -104,21 +104,21 @@ class ThreeDotsBottomSheetDialogFragment(
     }
 
     private fun defineMovieName(movie: MovieGeneral, textView: TextView): String {
-        return if (movie.nameRu != null && movie.nameRu.toString().isNotBlank()) {
-            val text = movie.nameRu
-            checkTextLength(text!!, textView)
-            text
+        val currentLocale = resources.configuration.locales[0].country
+        val text =  if (currentLocale == "RU" && movie.nameRu != null && movie.nameRu.toString()
+                .isNotBlank()
+        ) {
+            movie.nameRu!!
         } else if (movie.nameEn != null && movie.nameEn.toString().isNotBlank()) {
-            val text = movie.nameEn
-            checkTextLength(text!!, textView)
-            text
+            movie.nameEn!!
         } else if (movie.nameOriginal != null && movie.nameOriginal.toString().isNotBlank()) {
-            val text = movie.nameOriginal
-            checkTextLength(text!!, textView)
-            text
-        } else {
-            ""
-        }
+            movie.nameOriginal!!
+        } else if (movie.nameRu != null && movie.nameRu.toString().isNotBlank()
+        ) {
+            movie.nameRu!!
+        } else ""
+        checkTextLength(text, textView)
+        return text
     }
 
     private fun defineColorOfRatingText(rating: String, textView: TextView) {

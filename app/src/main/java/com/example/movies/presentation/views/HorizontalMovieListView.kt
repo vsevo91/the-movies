@@ -40,7 +40,9 @@ class HorizontalMovieListView @JvmOverloads constructor(
         allItemsButton = binding.allItemsButton
         recyclerView = binding.recyclerView
         setUniqueIdForRecyclerView()
+        val currentLocale = resources.configuration.locales[0].country
         adapter = AdapterForHorizontalMovieList(
+            currentLocale,
             actionOnButtonClick = { premiereList ->
                 actionOnButtonClick?.let {
                     it(nameText.text.toString(), premiereList)

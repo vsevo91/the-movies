@@ -51,7 +51,7 @@ class StaffListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         vm.connectionErrorState.observe(viewLifecycleOwner) { isError ->
             if (isError) {
-                doIfError(true){
+                doIfError(true) {
                     vm.clearErrorState()
                     movieId?.let { vm.getStaffByMovieId(it) }
                 }
@@ -59,7 +59,7 @@ class StaffListFragment : Fragment() {
         }
         vm.otherErrorState.observe(viewLifecycleOwner) { isError ->
             if (isError) {
-                doIfError(false){
+                doIfError(false) {
                     vm.clearErrorState()
                     movieId?.let { vm.getStaffByMovieId(it) }
                 }
@@ -69,7 +69,8 @@ class StaffListFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-        _adapter = AdapterForVerticalStaffList(emptyList())
+        val currentLocale = resources.configuration.locales[0].country
+        _adapter = AdapterForVerticalStaffList(currentLocale, emptyList())
         adapter.setItemClickListener { staff ->
             val bundle = Bundle().apply {
                 putInt(ARG_STAFF_ID, staff.staffId)
@@ -79,9 +80,9 @@ class StaffListFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(SpaceItemDecoration(0, 20))
         vm.staffRelatedToMovieLiveData.observe(viewLifecycleOwner) { staffListFull ->
-            val staffListFiltered = if(isActorList!!){
+            val staffListFiltered = if (isActorList!!) {
                 staffListFull.filter { it.professionKey == StaffRelatedToMovie.ACTOR }
-            }else{
+            } else {
                 staffListFull.filter { it.professionKey != StaffRelatedToMovie.ACTOR }
             }
             this.staffList = staffListFiltered

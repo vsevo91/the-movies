@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.movies.R
 import com.example.movies.databinding.FragmentOnboardingMainBinding
+import com.example.movies.presentation.activities.MainActivity
 import com.example.movies.presentation.adapters.OnboardingFragmentStateAdapter
 import com.example.movies.presentation.viewmodels.OnboardingViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -42,6 +43,7 @@ class OnboardingMainFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
 
         binding.skipText.setOnClickListener {
+            (activity as MainActivity).enterApplication()
             vm.submitEntrance()
             findNavController().navigate(R.id.action_onboardingFragment_to_mainFragment)
         }

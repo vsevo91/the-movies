@@ -25,7 +25,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class AdapterForGridMovieList(
-    private var list: List<MovieGeneral>
+    private var list: List<MovieGeneral>,
+    private val currentLocale: String
 ) : RecyclerView.Adapter<ViewHolderForGridMovieList>() {
 
     private var actionOnItemClick: ((MovieGeneral) -> Unit)? = null
@@ -63,15 +64,7 @@ class AdapterForGridMovieList(
                 .placeholder(R.drawable.gradient_background)
                 .into(movieImage)
 
-            movieName.text = if (movie.nameRu != null && movie.nameRu.toString().isNotBlank()) {
-                val text = movie.nameRu
-                checkTextLength(text!!, movieName)
-                text
-            } else {
-                val text = movie.nameEn ?: ""
-                checkTextLength(text, movieName)
-                text
-            }
+            defineMovieName(movie, movieName)
 
             genreText.text = movie.genres?.first()
             root.setOnClickListener {
@@ -108,6 +101,36 @@ class AdapterForGridMovieList(
                 }
             )
 
+        }
+    }
+
+    private fun defineMovieName(movie: MovieGeneral, textView: TextView) {
+        when {
+            currentLocale == "RU" && movie.nameRu != null && movie.nameRu.toString()
+                .isNotBlank() -> {
+                val text = movie.nameRu!!
+                checkTextLength(text, textView)
+                textView.text = text
+            }
+
+            movie.nameEn != null && movie.nameEn.toString().isNotBlank() -> {
+                val text = movie.nameEn!!
+                checkTextLength(text, textView)
+                textView.text = text
+            }
+
+            movie.nameOriginal != null && movie.nameOriginal.toString().isNotBlank() -> {
+                val text = movie.nameOriginal!!
+                checkTextLength(text, textView)
+                textView.text = text
+            }
+
+            movie.nameRu != null && movie.nameRu.toString()
+                .isNotBlank() -> {
+                val text = movie.nameRu!!
+                checkTextLength(text, textView)
+                textView.text = text
+            }
         }
     }
 
@@ -195,7 +218,7 @@ class AdapterForGridMovieList(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitNewList(newList:List<MovieGeneral>){
+    fun submitNewList(newList: List<MovieGeneral>) {
         this.list = newList
         this.notifyDataSetChanged()
     }

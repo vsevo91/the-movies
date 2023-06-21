@@ -47,7 +47,8 @@ class CollectionMovieListFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         if (collectionId == null) return
-        val adapter = AdapterForVerticalMovieListInCollection()
+        val currentLocale = resources.configuration.locales[0].country
+        val adapter = AdapterForVerticalMovieListInCollection(currentLocale)
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(SpaceItemDecoration(0, 20))
